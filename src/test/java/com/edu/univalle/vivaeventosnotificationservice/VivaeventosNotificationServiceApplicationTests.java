@@ -1,4 +1,4 @@
-package co.edu.univalle.vivaeventosnotificationservice;
+package com.edu.univalle.vivaeventosnotificationservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
