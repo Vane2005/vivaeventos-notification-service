@@ -9,5 +9,4 @@ class VivaeventosNotificationServiceApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
