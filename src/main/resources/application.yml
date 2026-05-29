@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: notification-service
+
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+
+  mail:
+    host: ${EMAIL_HOST:smtp.gmail.com}
+    port: ${EMAIL_PORT:587}
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+services:
+  order-service:
+    url: ${ORDER_SERVICE_URL:http://localhost:8083}
+
+server:
+  port: ${PORT:8085}
+
+logging:
+  level:
+    com.vivaeventos.notification: DEBUG
+    org.springframework.amqp: INFO
