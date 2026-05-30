@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: notification-service-test
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      simple:
+        auto-startup: true
+
+  mail:
+    host: localhost
+    port: 3025
+    username: test
+    password: test
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
+services:
+  order-service:
+    url: http://localhost:9998
+
+server:
+  port: 0
+
+logging:
+  level:
+    com.vivaeventos.notification: DEBUG
+    org.springframework.amqp: WARN
+    org.springframework.mail: DEBUG
