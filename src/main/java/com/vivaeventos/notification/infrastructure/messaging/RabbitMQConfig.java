@@ -14,6 +14,8 @@ public class RabbitMQConfig {
     public static final String EXCHANGE = "vivaeventos.events";
     public static final String QUEUE_EVENTO_CANCELADO = "evento.cancelado";
     public static final String ROUTING_KEY_EVENTO_CANCELADO = "evento.cancelado";
+    public static final String QUEUE_PAGO_APROBADO = "pago.aprobado";
+    public static final String ROUTING_KEY_PAGO_APROBADO = "pago.aprobado";
 
     @Bean
     public TopicExchange vivaeventosExchange() {
@@ -44,5 +46,21 @@ public class RabbitMQConfig {
         RabbitTemplate template = new RabbitTemplate(connectionFactory);
         template.setMessageConverter(jsonMessageConverter());
         return template;
+    }
+
+    @Bean
+    public Queue pagoAprobadoQueue() {
+        return QueueBuilder.durable(QUEUE_PAGO_APROBADO).build();
+    }
+
+    @Bean
+    public Binding pagoAprobadoBinding(
+            Queue pagoAprobadoQueue,
+            TopicExchange vivaeventosExchange) {
+
+        return BindingBuilder
+                .bind(pagoAprobadoQueue)
+                .to(vivaeventosExchange)
+                .with(ROUTING_KEY_PAGO_APROBADO);
     }
 }
