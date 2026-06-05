@@ -16,6 +16,21 @@ public class RabbitMQConfig {
     public static final String ROUTING_KEY_EVENTO_CANCELADO = "evento.cancelado";
     public static final String QUEUE_PAGO_APROBADO = "pago.aprobado";
     public static final String ROUTING_KEY_PAGO_APROBADO = "pago.aprobado";
+    public static final String QUEUE_TICKET_GENERATED = "notification-service.ticket.generated";
+    public static final String ROUTING_KEY_TICKET_GENERATED = "ticket.generated";
+
+    @Bean
+    public Queue ticketGeneratedQueue() {
+        return QueueBuilder.durable(QUEUE_TICKET_GENERATED).build();
+    }
+
+    @Bean
+    public Binding ticketGeneratedBinding(Queue ticketGeneratedQueue, TopicExchange vivaeventosExchange) {
+        return BindingBuilder
+                .bind(ticketGeneratedQueue)
+                .to(vivaeventosExchange)
+                .with(ROUTING_KEY_TICKET_GENERATED);
+    }
 
     @Bean
     public TopicExchange vivaeventosExchange() {
